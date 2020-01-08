@@ -22,7 +22,7 @@ namespace RevertedModel
 		/// <summary>
 		/// Целевой объект
 		/// </summary>
-		public TTarget Target { get; } = default!;
+		public TTarget Target { get; } = default;
 
 		public sealed override void Execute()
 		{

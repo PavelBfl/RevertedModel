@@ -38,6 +38,6 @@ namespace RevertedModel
 				}
 			}
 		}
-		private T value = default!;
+		private T value = default;
 	}
 }

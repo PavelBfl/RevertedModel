@@ -12,7 +12,7 @@ namespace RevertedModel
 			OldValue = Target.Value;
 		}
 
-		public T OldValue { get; } = default!;
+		public T OldValue { get; } = default;
 
 		protected override void ExecuteForce()
 		{

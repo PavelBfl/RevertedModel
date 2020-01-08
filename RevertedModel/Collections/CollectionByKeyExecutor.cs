@@ -22,14 +22,14 @@ namespace RevertedModel.Collections
 		}
 		public static CollectionByKeyExecutor<TKey, TValue> Remove(CommandedCollectionByKey<TKey, TValue> target, TKey key)
 		{
-			return new CollectionByKeyExecutor<TKey, TValue>(target, new CollectionByKeyCommand<TKey, TValue>(CollectionByKeyChanged.Remove, key, default!));
+			return new CollectionByKeyExecutor<TKey, TValue>(target, new CollectionByKeyCommand<TKey, TValue>(CollectionByKeyChanged.Remove, key, default));
 		}
 		public static CollectionByKeyExecutor<TKey, TValue> Update(CommandedCollectionByKey<TKey, TValue> target, TKey key, TValue newItem)
 		{
 			return new CollectionByKeyExecutor<TKey, TValue>(target, new CollectionByKeyCommand<TKey, TValue>(CollectionByKeyChanged.Update, key, newItem));
 		}
 
-		public TValue OldValue { get; } = default!;
+		public TValue OldValue { get; } = default;
 
 		protected override void ExecuteForce()
 		{

@@ -40,6 +40,6 @@ namespace RevertedModel.Collections
 		/// <summary>
 		/// Обрабатываемый элемент коллекции
 		/// </summary>
-		public T Item { get; } = default!;
+		public T Item { get; } = default;
 	}
 }

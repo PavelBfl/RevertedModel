@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public class CommandedDictionary<TKey, TValue> : CommandedCollectionByKey<TKey, TValue>, IDictionary<TKey, TValue> where TKey : notnull
+	public class CommandedDictionary<TKey, TValue> : CommandedCollectionByKey<TKey, TValue>, IDictionary<TKey, TValue>
 	{
 		public CommandedDictionary(CommandDispatcher commandDispatcher)
 			: base(commandDispatcher)

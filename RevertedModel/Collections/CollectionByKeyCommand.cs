@@ -45,10 +45,10 @@ namespace RevertedModel.Collections
 		/// <summary>
 		/// Ключ элемента в коллекции
 		/// </summary>
-		public TKey Key { get; } = default!;
+		public TKey Key { get; } = default;
 		/// <summary>
 		/// Новое значение элемента
 		/// </summary>
-		public TValue NewValue { get; } = default!;
+		public TValue NewValue { get; } = default;
 	}
 }

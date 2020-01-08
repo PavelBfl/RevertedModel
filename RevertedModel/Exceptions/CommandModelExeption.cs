@@ -13,12 +13,12 @@ namespace RevertedModel.Exceptions
 		{
 		}
 
-		public CommandModelExeption(string? message)
+		public CommandModelExeption(string message)
 			: base(message)
 		{
 		}
 
-		public CommandModelExeption(string? message, Exception? innerException)
+		public CommandModelExeption(string message, Exception innerException)
 			: base(message, innerException)
 		{
 		}

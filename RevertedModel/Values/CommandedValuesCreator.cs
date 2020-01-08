@@ -11,9 +11,9 @@ namespace RevertedModel
 			CommandDispatcher = commandDispatcher ?? throw new NullReferenceException(nameof(commandDispatcher));
 		}
 
-		public CommandDispatcher CommandDispatcher { get; } = null!;
+		public CommandDispatcher CommandDispatcher { get; } = null;
 
-		public CommandedValue<T> Create<T>(T initValue = default!)
+		public CommandedValue<T> Create<T>(T initValue = default)
 		{
 			return new CommandedValue<T>(initValue, CommandDispatcher);
 		}

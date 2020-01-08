@@ -22,7 +22,7 @@ namespace RevertedModel
 		/// <summary>
 		/// Диспетчер команд
 		/// </summary>
-		public CommandDispatcher CommandDispatcher { get; } = default!;
+		public CommandDispatcher CommandDispatcher { get; } = default;
 		/// <summary>
 		/// Флаг записи действий объекта в общий стек комманд
 		/// </summary>
@@ -56,7 +56,7 @@ namespace RevertedModel
 				}
 			}
 
-			public CommandedObject CommandedObject { get; } = default!;
+			public CommandedObject CommandedObject { get; } = default;
 
 			private readonly bool isCallback = false;
 

@@ -51,7 +51,7 @@ namespace RevertedModel
 		/// <summary>
 		/// Диспетчер токенов сдвига команд
 		/// </summary>
-		public IOffsetTokenDispatcher OffsetTokenDispatcher { get; } = default!;
+		public IOffsetTokenDispatcher OffsetTokenDispatcher { get; } = default;
 
 		/// <summary>
 		/// Сдвинуть команды до указаного токена

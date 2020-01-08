@@ -17,6 +17,6 @@ namespace RevertedModel
 		/// <summary>
 		/// Выполняемая команда
 		/// </summary>
-		public TCommand Command { get; } = null!;
+		public TCommand Command { get; } = null;
 	}
 }

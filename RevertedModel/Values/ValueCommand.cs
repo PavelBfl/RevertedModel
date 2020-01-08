@@ -17,6 +17,6 @@ namespace RevertedModel
 		/// <summary>
 		/// Новое значение
 		/// </summary>
-		public T NewValue { get; } = default!;
+		public T NewValue { get; } = default;
 	}
 }
