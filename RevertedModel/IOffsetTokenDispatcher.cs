@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace RevertedModel
 {
+	/// <summary>
+	/// Поставщик токенов сдвига команд
+	/// </summary>
 	public interface IOffsetTokenDispatcher
 	{
+		/// <summary>
+		/// Создать токен сдвига
+		/// </summary>
+		/// <returns>Токен сдвига</returns>
 		IComparable CreateToken();
 	}
 }
