@@ -1,66 +1,71 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MockGenerators.DoubleGenerators;
+using MockGenerators.Int32Generators;
+using MockGenerators.StringGenerators;
 using RevertedModel.Collections;
+using RevertedModelTests;
+using RevertedModelTests.Collections;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace RevertedModel.Collections.Tests
 {
 	[TestClass()]
-	public class CommandedListTests
+	public class CommandedListTests : CollectionTestBase<ICommandedListTests>
 	{
-		[TestMethod()]
-		public void CommandedListTest()
+		protected override IEnumerable<ICommandedListTests> CreateTests(int count)
 		{
-			Assert.Fail();
+			return new ICommandedListTests[]
+			{
+				new CommandedListTest<int>(new Int32Generator(count), count),
+				new CommandedListTest<double>(new DoubleGenerator(count), count),
+				new CommandedListTest<string>(new StringGenerator(count), count),
+			};
 		}
 
 		[TestMethod()]
 		public void IndexOfTest()
 		{
-			Assert.Fail();
+			Testing(test => test.IndexOfTest());
 		}
 
 		[TestMethod()]
 		public void RemoveAtTest()
 		{
-			Assert.Fail();
+			Testing(test => test.RemoveAtTest());
 		}
 
 		[TestMethod()]
 		public void AddTest()
 		{
-			Assert.Fail();
+			Testing(test => test.AddTest());
 		}
 
 		[TestMethod()]
 		public void ClearTest()
 		{
-			Assert.Fail();
+			Testing(test => test.ClearTest());
 		}
 
 		[TestMethod()]
 		public void ContainsTest()
 		{
-			Assert.Fail();
+			Testing(test => test.ContainsTest());
 		}
 
 		[TestMethod()]
 		public void CopyToTest()
 		{
-			Assert.Fail();
+			Testing(test => test.CopyToTest());
 		}
 
 		[TestMethod()]
 		public void RemoveTest()
 		{
-			Assert.Fail();
-		}
-
-		[TestMethod()]
-		public void GetEnumeratorTest()
-		{
-			Assert.Fail();
+			Testing(test => test.RemoveTest());
 		}
 	}
 }
