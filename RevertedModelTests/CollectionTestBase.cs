@@ -11,7 +11,7 @@ namespace RevertedModelTests
 {
 	public abstract class CollectionTestBase<T>
 	{
-		protected const int MIN_COUNT = 0;
+		protected const int MIN_COUNT = 1;
 		protected const int MAX_COUNT = 100;
 		protected const int TESTS_COUNT = 10;
 
@@ -34,9 +34,11 @@ namespace RevertedModelTests
 
 		protected void Testing(Action<T> testExecute)
 		{
+			var index = 0;
 			foreach (var test in Tests)
 			{
 				testExecute(test);
+				index++;
 			}
 		}
 	}

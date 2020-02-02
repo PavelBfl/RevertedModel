@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RevertedModelTests.Collections
 {
-	class CommandedDictionaryTestOfType<TKey, TValue>
+	class CommandedDictionaryTestOfType<TKey, TValue> : ICommandedDictionaryTest
 	{
 		public CommandedDictionaryTestOfType(IValueGenerator<TKey> keyGenerator, IValueGenerator<TValue> valueGenerator, int count)
 		{
