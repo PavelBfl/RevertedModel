@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public class CommandedCollectionUnique<T> : CommandedObject, ICollection<T>
+	public class TrackCollectionUnique<T> : TrackObject, ICollection<T>
 	{
-		public CommandedCollectionUnique(CommandDispatcher commandDispatcher)
-			: base(commandDispatcher)
+		public TrackCollectionUnique(TrackDispatcher trackDispatcher)
+			: base(trackDispatcher)
 		{
 		}
 
@@ -22,9 +22,9 @@ namespace RevertedModel.Collections
 
 		public void Add(T item)
 		{
-			if (CommandRecording)
+			if (TrackDispatcher.IsEnable)
 			{
-				CommandDispatcher.AddAndExecute(new CollectionUniqueExecutor<T>(this, new CollectionUniqueCommand<T>(CollectionUniqueChanged.Add, item)));
+				TrackDispatcher.AddAndExecute(new CollectionUniqueExecutor<T>(this, new CollectionUniqueCommand<T>(CollectionUniqueChanged.Add, item)));
 			}
 			else
 			{
@@ -56,9 +56,9 @@ namespace RevertedModel.Collections
 
 		public bool Remove(T item)
 		{
-			if (CommandRecording)
+			if (TrackDispatcher.IsEnable)
 			{
-				CommandDispatcher.AddAndExecute(new CollectionUniqueExecutor<T>(this, new CollectionUniqueCommand<T>(CollectionUniqueChanged.Remove, item)));
+				TrackDispatcher.AddAndExecute(new CollectionUniqueExecutor<T>(this, new CollectionUniqueCommand<T>(CollectionUniqueChanged.Remove, item)));
 				return true;
 			}
 			else

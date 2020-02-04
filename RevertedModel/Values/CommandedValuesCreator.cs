@@ -6,16 +6,16 @@ namespace RevertedModel
 {
 	public class CommandedValuesCreator
 	{
-		public CommandedValuesCreator(CommandDispatcher commandDispatcher)
+		public CommandedValuesCreator(TrackDispatcher commandDispatcher)
 		{
 			CommandDispatcher = commandDispatcher ?? throw new NullReferenceException(nameof(commandDispatcher));
 		}
 
-		public CommandDispatcher CommandDispatcher { get; } = null;
+		public TrackDispatcher CommandDispatcher { get; } = null;
 
-		public CommandedValue<T> Create<T>(T initValue = default)
+		public TrackValue<T> Create<T>(T initValue = default)
 		{
-			return new CommandedValue<T>(initValue, CommandDispatcher);
+			return new TrackValue<T>(initValue, CommandDispatcher);
 		}
 	}
 }

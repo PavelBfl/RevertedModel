@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public abstract class CommandedCollectionByKey<TKey, TValue> : CommandedObject
+	public abstract class TrackCollectionByKey<TKey, TValue> : TrackObject
 	{
-		public CommandedCollectionByKey(CommandDispatcher commandDispatcher)
-			: base(commandDispatcher)
+		public TrackCollectionByKey(TrackDispatcher trackDispatcher)
+			: base(trackDispatcher)
 		{
 		}
 
@@ -18,9 +18,9 @@ namespace RevertedModel.Collections
 			get => GetValue(key);
 			set
 			{
-				if (CommandRecording)
+				if (TrackDispatcher.IsEnable)
 				{
-					CommandDispatcher.AddAndExecute(CollectionByKeyExecutor<TKey, TValue>.Update(this, key, value));
+					TrackDispatcher.AddAndExecute(CollectionByKeyExecutor<TKey, TValue>.Update(this, key, value));
 				}
 				else
 				{
@@ -33,9 +33,9 @@ namespace RevertedModel.Collections
 
 		public void Insert(TKey key, TValue value)
 		{
-			if (CommandRecording)
+			if (TrackDispatcher.IsEnable)
 			{
-				CommandDispatcher.AddAndExecute(CollectionByKeyExecutor<TKey, TValue>.Insert(this, key, value));
+				TrackDispatcher.AddAndExecute(CollectionByKeyExecutor<TKey, TValue>.Insert(this, key, value));
 			}
 			else
 			{
@@ -46,9 +46,9 @@ namespace RevertedModel.Collections
 
 		public void Remove(TKey key)
 		{
-			if (CommandRecording)
+			if (TrackDispatcher.IsEnable)
 			{
-				CommandDispatcher.AddAndExecute(CollectionByKeyExecutor<TKey, TValue>.Remove(this, key));
+				TrackDispatcher.AddAndExecute(CollectionByKeyExecutor<TKey, TValue>.Remove(this, key));
 			}
 			else
 			{

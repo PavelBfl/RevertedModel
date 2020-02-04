@@ -8,13 +8,13 @@ namespace RevertedModel
 	/// Объект скалярного значения
 	/// </summary>
 	/// <typeparam name="T">Тип значения</typeparam>
-	public class CommandedValue<T> : CommandedObject
+	public class TrackValue<T> : TrackObject
 	{
-		public CommandedValue(CommandDispatcher commandDispatcher)
+		public TrackValue(TrackDispatcher commandDispatcher)
 			: base(commandDispatcher)
 		{
 		}
-		public CommandedValue(T initValue, CommandDispatcher commandDispatcher)
+		public TrackValue(T initValue, TrackDispatcher commandDispatcher)
 			: base(commandDispatcher)
 		{
 			Value = initValue;
@@ -28,7 +28,7 @@ namespace RevertedModel
 			get => value;
 			set
 			{
-				if (CommandRecording)
+				if (TrackDispatcher.IsEnable)
 				{
 					Execute(new ValueExecutor<T>(this, new ValueCommand<T>(value)));
 				}

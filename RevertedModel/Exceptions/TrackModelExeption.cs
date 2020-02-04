@@ -7,18 +7,18 @@ namespace RevertedModel.Exceptions
 	/// <summary>
 	/// Базовое исключение для элементов командной модели
 	/// </summary>
-	public class CommandModelExeption : Exception
+	public class TrackModelExeption : Exception
 	{
-		public CommandModelExeption()
+		public TrackModelExeption()
 		{
 		}
 
-		public CommandModelExeption(string message)
+		public TrackModelExeption(string message)
 			: base(message)
 		{
 		}
 
-		public CommandModelExeption(string message, Exception innerException)
+		public TrackModelExeption(string message, Exception innerException)
 			: base(message, innerException)
 		{
 		}

@@ -20,7 +20,7 @@ namespace RevertedModelTests.Collections
 
 		public IValueGenerator<TKey> KeyGenerator { get; } = null;
 		public IValueGenerator<TValue> ValueGenerator { get; } = null;
-		public CommandDispatcher CommandDispatcher { get; } = new CommandDispatcher(new DefaultOffsetTokenDispatcher());
+		public TrackDispatcher CommandDispatcher { get; } = new TrackDispatcher(new DefaultOffsetTokenDispatcher());
 		public int Count { get; } = 0;
 
 		private IEnumerable<KeyValuePair<TKey, TValue>> GetPairs()
@@ -34,7 +34,7 @@ namespace RevertedModelTests.Collections
 
 		public void CommandedDictionaryTest()
 		{
-			var testDictionary = new CommandedDictionary<TKey, TValue>(CommandDispatcher);
+			var testDictionary = new TrackDictionary<TKey, TValue>(CommandDispatcher);
 
 			Assert.IsTrue(testDictionary.Count == 0);
 		}
@@ -42,7 +42,7 @@ namespace RevertedModelTests.Collections
 		public void ContainsKeyTest()
 		{
 			var originalDictionary = new Dictionary<TKey, TValue>();
-			var testDictionary = new CommandedDictionary<TKey, TValue>(CommandDispatcher);
+			var testDictionary = new TrackDictionary<TKey, TValue>(CommandDispatcher);
 			foreach (var pair in GetPairs())
 			{
 				Assert.AreEqual(originalDictionary.ContainsKey(pair.Key), testDictionary.ContainsKey(pair.Key));
@@ -55,7 +55,7 @@ namespace RevertedModelTests.Collections
 		public void AddTest()
 		{
 			var originalDictionary = new Dictionary<TKey, TValue>();
-			var testDictionary = new CommandedDictionary<TKey, TValue>(CommandDispatcher);
+			var testDictionary = new TrackDictionary<TKey, TValue>(CommandDispatcher);
 			foreach (var pair in GetPairs())
 			{
 				originalDictionary.Add(pair.Key, pair.Value);
@@ -67,7 +67,7 @@ namespace RevertedModelTests.Collections
 		public void TryGetValueTest()
 		{
 			var originalDictionary = new Dictionary<TKey, TValue>();
-			var testDictionary = new CommandedDictionary<TKey, TValue>(CommandDispatcher);
+			var testDictionary = new TrackDictionary<TKey, TValue>(CommandDispatcher);
 			foreach (var pair in GetPairs())
 			{
 				Assert.AreEqual(
@@ -89,7 +89,7 @@ namespace RevertedModelTests.Collections
 
 		public void ClearTest()
 		{
-			var testDictionary = new CommandedDictionary<TKey, TValue>(CommandDispatcher);
+			var testDictionary = new TrackDictionary<TKey, TValue>(CommandDispatcher);
 			foreach (var pair in GetPairs())
 			{
 				testDictionary.Add(pair.Key, pair.Value);
@@ -101,7 +101,7 @@ namespace RevertedModelTests.Collections
 		public void RemoveTest()
 		{
 			var originalDictionary = new Dictionary<TKey, TValue>();
-			var testDictionary = new CommandedDictionary<TKey, TValue>(CommandDispatcher);
+			var testDictionary = new TrackDictionary<TKey, TValue>(CommandDispatcher);
 			foreach (var pair in GetPairs())
 			{
 				originalDictionary.Add(pair.Key, pair.Value);

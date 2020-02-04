@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public abstract class CommandedCollection<T> : CommandedObject
+	public abstract class TrackCollection<T> : TrackObject
 	{
-		public CommandedCollection(CommandDispatcher commandDispatcher)
-			: base(commandDispatcher)
+		public TrackCollection(TrackDispatcher trackDispatcher)
+			: base(trackDispatcher)
 		{
 
 		}

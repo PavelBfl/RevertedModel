@@ -4,9 +4,9 @@ using System.Text;
 
 namespace RevertedModel
 {
-	class ValueExecutor<T> : CommandExecutorTarger<CommandedValue<T>, ValueCommand<T>>
+	class ValueExecutor<T> : CommandExecutorTarger<TrackValue<T>, ValueCommand<T>>
 	{
-		public ValueExecutor(CommandedValue<T> target, ValueCommand<T> command)
+		public ValueExecutor(TrackValue<T> target, ValueCommand<T> command)
 			: base(target, command)
 		{
 			OldValue = Target.Value;

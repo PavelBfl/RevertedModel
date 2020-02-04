@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public class CommandedDictionary<TKey, TValue> : CommandedCollectionByKey<TKey, TValue>, IDictionary<TKey, TValue>
+	public class TrackDictionary<TKey, TValue> : TrackCollectionByKey<TKey, TValue>, IDictionary<TKey, TValue>
 	{
-		public CommandedDictionary(CommandDispatcher commandDispatcher)
-			: base(commandDispatcher)
+		public TrackDictionary(TrackDispatcher trackDispatcher)
+			: base(trackDispatcher)
 		{
 			
 		}

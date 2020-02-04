@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RevertedModel.Exceptions
 {
-	public class OffsetTokenLessCurrentExeption : CommandModelExeption
+	public class OffsetTokenLessCurrentExeption : TrackModelExeption
 	{
 		private const string MESSAGE = "Созданый токен сдвига меньше текущего";
 

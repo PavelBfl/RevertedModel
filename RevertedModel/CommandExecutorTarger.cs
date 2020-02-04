@@ -10,7 +10,7 @@ namespace RevertedModel
 	/// <typeparam name="TTarget">Тип целевого объекта</typeparam>
 	/// <typeparam name="TCommand">Тип выполняемой команды</typeparam>
 	public abstract class CommandExecutorTarger<TTarget, TCommand> : CommandExecutor<TCommand>
-		where TTarget : CommandedObject
+		where TTarget : TrackObject
 		where TCommand : Command
 	{
 		public CommandExecutorTarger(TTarget target, TCommand command)
@@ -26,7 +26,7 @@ namespace RevertedModel
 
 		public sealed override void Execute()
 		{
-			using (Target.Disable())
+			using (Target.TrackDispatcher.Disable())
 			{
 				ExecuteForce();
 			}
@@ -34,7 +34,7 @@ namespace RevertedModel
 		protected abstract void ExecuteForce();
 		public sealed override void Undo()
 		{
-			using (Target.Disable())
+			using (Target.TrackDispatcher.Disable())
 			{
 				UndoForce();
 			}
