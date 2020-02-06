@@ -9,6 +9,11 @@ namespace RevertedModel.Collections
 {
 	public class TrackDictionary<TKey, TValue> : TrackCollectionByKey<TKey, TValue>, IDictionary<TKey, TValue>
 	{
+		public TrackDictionary()
+			: base()
+		{
+
+		}
 		public TrackDictionary(TrackDispatcher trackDispatcher)
 			: base(trackDispatcher)
 		{

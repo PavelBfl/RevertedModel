@@ -17,6 +17,12 @@ namespace RevertedModel
 	{
 		private const string UNKNOWN_TOKEN = "Не удалось получить значение текущего токена сдвига т.к. отсутствуют записаные действия";
 
+		/// <summary>
+		/// Диспетчер отслеживания по умолчанию
+		/// </summary>
+		public static TrackDispatcher Default => @default ?? (@default = new TrackDispatcher(new DefaultOffsetTokenDispatcher()));
+		private static TrackDispatcher @default = null;
+
 		public TrackDispatcher(IOffsetTokenDispatcher offsetTokenDispatcher)
 		{
 			OffsetTokenDispatcher = offsetTokenDispatcher ?? throw new NullReferenceException(nameof(offsetTokenDispatcher));
@@ -65,6 +71,14 @@ namespace RevertedModel
 		public IDisposable Disable()
 		{
 			return new DisableToken(this);
+		}
+		/// <summary>
+		/// Очистить все шаги отслеживания
+		/// </summary>
+		public void Clear()
+		{
+			commands.Clear();
+			undoCommands.Clear();
 		}
 
 

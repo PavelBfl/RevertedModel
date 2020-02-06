@@ -19,12 +19,11 @@ namespace RevertedModelTests.Collections
 
 		public IValueGenerator<T> ValueGenerator { get; } = null;
 		public int Count { get; } = 0;
-		public TrackDispatcher CommandDispatcher { get; } = new TrackDispatcher(new DefaultOffsetTokenDispatcher());
 
 		public void AddTest()
 		{
 			var originalCollection = new HashSet<T>();
-			var testCollection = new TrackCollectionUnique<T>(CommandDispatcher);
+			var testCollection = new TrackCollectionUnique<T>();
 
 			foreach (var value in ValueGenerator.Take(Count))
 			{
@@ -35,7 +34,7 @@ namespace RevertedModelTests.Collections
 		}
 		public void ClearTest()
 		{
-			var testCollection = new TrackCollectionUnique<T>(CommandDispatcher);
+			var testCollection = new TrackCollectionUnique<T>();
 			foreach (var value in ValueGenerator.Take(Count))
 			{
 				testCollection.Add(value);
@@ -46,7 +45,7 @@ namespace RevertedModelTests.Collections
 		public void ContainsTest()
 		{
 			var originalCollection = new HashSet<T>();
-			var testCollection = new TrackCollectionUnique<T>(CommandDispatcher);
+			var testCollection = new TrackCollectionUnique<T>();
 
 			foreach (var value in ValueGenerator.Take(Count))
 			{
@@ -62,7 +61,7 @@ namespace RevertedModelTests.Collections
 		public void RemoveTest()
 		{
 			var originalCollection = new HashSet<T>();
-			var testCollection = new TrackCollectionUnique<T>(CommandDispatcher);
+			var testCollection = new TrackCollectionUnique<T>();
 
 			foreach (var value in ValueGenerator.Take(Count))
 			{

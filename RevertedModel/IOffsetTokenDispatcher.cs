@@ -12,7 +12,7 @@ namespace RevertedModel
 	public interface IOffsetTokenDispatcher
 	{
 		/// <summary>
-		/// Создать токен сдвига
+		/// Создать токен сдвига, каждый следующий предоставляемый токен должен быть больше преведущего
 		/// </summary>
 		/// <returns>Токен сдвига</returns>
 		IComparable CreateToken();

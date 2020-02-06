@@ -34,11 +34,9 @@ namespace RevertedModelTests
 
 		protected void Testing(Action<T> testExecute)
 		{
-			var index = 0;
 			foreach (var test in Tests)
 			{
 				testExecute(test);
-				index++;
 			}
 		}
 	}

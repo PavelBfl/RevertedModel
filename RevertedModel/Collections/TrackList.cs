@@ -9,6 +9,11 @@ namespace RevertedModel.Collections
 {
 	public class TrackList<T> : TrackCollectionByKey<int, T>, IList<T>
 	{
+		public TrackList()
+			: base()
+		{
+
+		}
 		public TrackList(TrackDispatcher trackDispatcher)
 			: base(trackDispatcher)
 		{

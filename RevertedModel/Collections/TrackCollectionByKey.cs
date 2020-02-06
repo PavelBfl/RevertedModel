@@ -8,6 +8,11 @@ namespace RevertedModel.Collections
 {
 	public abstract class TrackCollectionByKey<TKey, TValue> : TrackObject
 	{
+		public TrackCollectionByKey()
+			: base()
+		{
+
+		}
 		public TrackCollectionByKey(TrackDispatcher trackDispatcher)
 			: base(trackDispatcher)
 		{

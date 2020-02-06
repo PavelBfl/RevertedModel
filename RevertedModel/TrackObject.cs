@@ -14,6 +14,11 @@ namespace RevertedModel
 	{
 		private const string COMMAND_DISPATCHER_NULL_MESSAGE = "Диспетчер команд не может принимать значение null";
 
+		public TrackObject()
+			: this(TrackDispatcher.Default)
+		{
+
+		}
 		public TrackObject(TrackDispatcher trackDispatcher)
 		{
 			TrackDispatcher = trackDispatcher ?? throw new NullReferenceException(COMMAND_DISPATCHER_NULL_MESSAGE);
@@ -22,7 +27,7 @@ namespace RevertedModel
 		/// <summary>
 		/// Диспетчер команд
 		/// </summary>
-		public TrackDispatcher TrackDispatcher { get; } = default;
+		public TrackDispatcher TrackDispatcher { get; } = null;
 		
 		/// <summary>
 		/// Выполнить команду

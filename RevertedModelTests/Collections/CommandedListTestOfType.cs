@@ -21,13 +21,12 @@ namespace RevertedModelTests.Collections
 		}
 
 		public IValueGenerator<T> ItemsGenerator { get; } = null;
-		public TrackDispatcher CommandDispatcher { get; } = new TrackDispatcher(new DefaultOffsetTokenDispatcher());
 		public int Count { get; } = 0;
 
 		public void AddTest()
 		{
 			var originalList = new List<T>();
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 
 			foreach (var value in ItemsGenerator.Take(MAX_COUNT))
 			{
@@ -39,7 +38,7 @@ namespace RevertedModelTests.Collections
 
 		public void ClearTest()
 		{
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 			foreach (var value in ItemsGenerator.Take(Count))
 			{
 				testList.Add(value);
@@ -51,7 +50,7 @@ namespace RevertedModelTests.Collections
 		public void ContainsTest()
 		{
 			var originalList = new List<T>();
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 
 			foreach (var value in ItemsGenerator.Take(Count))
 			{
@@ -65,7 +64,7 @@ namespace RevertedModelTests.Collections
 		public void CopyToTest()
 		{
 			var originalList = new List<T>();
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 
 			foreach (var value in ItemsGenerator.Take(Count))
 			{
@@ -83,7 +82,7 @@ namespace RevertedModelTests.Collections
 		public void IndexOfTest()
 		{
 			var originalList = new List<T>();
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 
 			foreach (var value in ItemsGenerator.Take(Count))
 			{
@@ -97,7 +96,7 @@ namespace RevertedModelTests.Collections
 		public void RemoveAtTest()
 		{
 			var originalList = new List<T>();
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 
 			foreach (var value in ItemsGenerator.Take(Count))
 			{
@@ -118,7 +117,7 @@ namespace RevertedModelTests.Collections
 		public void RemoveTest()
 		{
 			var originalList = new List<T>();
-			var testList = new TrackList<T>(CommandDispatcher);
+			var testList = new TrackList<T>();
 
 			foreach (var value in ItemsGenerator.Take(Count))
 			{

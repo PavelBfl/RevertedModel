@@ -1,9 +1,8 @@
-﻿using RevertedModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RevertedModelTests
+namespace RevertedModel
 {
 	class DefaultOffsetTokenDispatcher : IOffsetTokenDispatcher
 	{

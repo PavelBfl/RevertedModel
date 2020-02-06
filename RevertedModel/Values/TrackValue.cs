@@ -10,9 +10,19 @@ namespace RevertedModel
 	/// <typeparam name="T">Тип значения</typeparam>
 	public class TrackValue<T> : TrackObject
 	{
+		public TrackValue()
+			: base()
+		{
+
+		}
 		public TrackValue(TrackDispatcher commandDispatcher)
 			: base(commandDispatcher)
 		{
+		}
+		public TrackValue(T initValue)
+			: base()
+		{
+			Value = initValue;
 		}
 		public TrackValue(T initValue, TrackDispatcher commandDispatcher)
 			: base(commandDispatcher)
