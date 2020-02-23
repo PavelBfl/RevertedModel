@@ -20,6 +20,16 @@ namespace RevertedModel.Collections
 
 		}
 
+		public TrackList(IEnumerable<T> items)
+			: base()
+		{
+			this.items.AddRange(items);
+		}
+		public TrackList(IEnumerable<T> items, TrackDispatcher trackDispatcher)
+		{
+			this.items.AddRange(items);
+		}
+
 		private readonly List<T> items = new List<T>();
 
 		public int Count => items.Count;

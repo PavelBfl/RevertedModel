@@ -21,7 +21,7 @@ namespace RevertedModel
 		}
 		public TrackObject(TrackDispatcher trackDispatcher)
 		{
-			TrackDispatcher = trackDispatcher ?? throw new NullReferenceException(COMMAND_DISPATCHER_NULL_MESSAGE);
+			TrackDispatcher = trackDispatcher ?? throw new ArgumentNullException(COMMAND_DISPATCHER_NULL_MESSAGE);
 		}
 
 		/// <summary>
