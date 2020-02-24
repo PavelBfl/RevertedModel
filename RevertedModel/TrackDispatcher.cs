@@ -25,7 +25,7 @@ namespace RevertedModel
 
 		public TrackDispatcher(IOffsetTokenDispatcher offsetTokenDispatcher)
 		{
-			OffsetTokenDispatcher = offsetTokenDispatcher ?? throw new NullReferenceException(nameof(offsetTokenDispatcher));
+			OffsetTokenDispatcher = offsetTokenDispatcher ?? throw new ArgumentNullException(nameof(offsetTokenDispatcher));
 		}
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace RevertedModel
 				{
 					throw new TrackModelExeption(UNKNOWN_TOKEN);
 				}
-				return commands.Last().OffsetToken;
+				return commands.First().OffsetToken;
 			}
 		}
 

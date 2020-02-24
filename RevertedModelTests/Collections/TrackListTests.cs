@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RevertedModel.Collections;
+using RevertedModelTests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace RevertedModel.Collections.Tests
 
 		private static TrackDispatcher CustomDispatcher()
 		{
-			return new TrackDispatcher(new TokenOffsetDispatcher());
+			return new TrackDispatcher(new OffsetTokenDispatcher());
 		}
 
 		[TestMethod()]
@@ -205,16 +206,6 @@ namespace RevertedModel.Collections.Tests
 			var list = new TrackList<int>(items);
 			var result = list.Remove(value);
 			Assert.IsFalse(result);
-		}
-
-		private class TokenOffsetDispatcher : IOffsetTokenDispatcher
-		{
-			public int CurretTokken { get; private set; } = 0;
-
-			public IComparable CreateToken()
-			{
-				return CurretTokken++;
-			}
 		}
 	}
 }

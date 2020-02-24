@@ -60,10 +60,13 @@ namespace RevertedModel.Collections
 			Insert(key, value);
 		}
 
-		bool IDictionary<TKey, TValue>.Remove(TKey key)
+		public new bool Remove(TKey key)
 		{
 			var result = ContainsKey(key);
-			Remove(key);
+			if (result)
+			{
+				base.Remove(key); 
+			}
 			return result;
 		}
 
