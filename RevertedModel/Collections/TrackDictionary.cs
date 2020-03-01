@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public class TrackDictionary<TKey, TValue> : TrackCollectionByKey<TKey, TValue>, IDictionary<TKey, TValue>
+	public class TrackDictionary<TKey, TValue> : TrackCollectionByKey<TKey, TValue>, ITrackDictionary<TKey, TValue>
 	{
 		public TrackDictionary()
 			: base()

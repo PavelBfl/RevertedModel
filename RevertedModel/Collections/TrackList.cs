@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public class TrackList<T> : TrackCollectionByKey<int, T>, IList<T>
+	public class TrackList<T> : TrackCollectionByKey<int, T>, ITrackList<T>
 	{
 		public TrackList()
 			: base()

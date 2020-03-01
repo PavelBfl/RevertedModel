@@ -8,7 +8,7 @@ namespace RevertedModel
 	/// Объект скалярного значения
 	/// </summary>
 	/// <typeparam name="T">Тип значения</typeparam>
-	public class TrackValue<T> : TrackObject
+	public class TrackValue<T> : TrackObject, ITrackValue<T>
 	{
 		public TrackValue()
 			: base()

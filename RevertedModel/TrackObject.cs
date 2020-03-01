@@ -10,7 +10,7 @@ namespace RevertedModel
 	/// <summary>
 	/// Объект выполнения команд
 	/// </summary>
-	public class TrackObject
+	public class TrackObject : ITrackObject
 	{
 		private const string COMMAND_DISPATCHER_NULL_MESSAGE = "Диспетчер команд не может принимать значение null";
 
@@ -28,7 +28,7 @@ namespace RevertedModel
 		/// Диспетчер команд
 		/// </summary>
 		public TrackDispatcher TrackDispatcher { get; } = null;
-		
+
 		/// <summary>
 		/// Выполнить команду
 		/// </summary>

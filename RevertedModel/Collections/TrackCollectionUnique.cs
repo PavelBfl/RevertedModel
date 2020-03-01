@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RevertedModel.Collections
 {
-	public class TrackCollectionUnique<T> : TrackObject, ICollection<T>
+	public class TrackCollectionUnique<T> : TrackObject, ITrackSet<T>
 	{
 		public TrackCollectionUnique()
 			: base()
