@@ -5,11 +5,11 @@ using System.Text;
 
 namespace RevertedModelTests
 {
-	class OffsetTokenDispatcher : IOffsetTokenDispatcher
+	class OffsetTokenDispatcher : ITrackTokenProvider
 	{
 		public int CurrentToken { get; private set; } = 0;
 
-		public IComparable CreateToken()
+		public object CreateToken()
 		{
 			return CurrentToken++;
 		}

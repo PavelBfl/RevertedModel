@@ -23,7 +23,7 @@ namespace RevertedModel
 		public static TrackDispatcher Default => @default ?? (@default = new TrackDispatcher(new DefaultOffsetTokenDispatcher()));
 		private static TrackDispatcher @default = null;
 
-		public TrackDispatcher(IOffsetTokenDispatcher offsetTokenDispatcher)
+		public TrackDispatcher(ITrackTokenProvider offsetTokenDispatcher)
 		{
 			OffsetTokenDispatcher = offsetTokenDispatcher ?? throw new ArgumentNullException(nameof(offsetTokenDispatcher));
 		}
@@ -36,30 +36,30 @@ namespace RevertedModel
 		/// Список отменёных команд
 		/// </summary>
 		private readonly Stack<TokenExecutor> undoCommands = new Stack<TokenExecutor>();
+		/// <summary>
+		/// Список используемых токенов
+		/// </summary>
+		private readonly HashSet<object> tokens = new HashSet<object>();
 
 		/// <summary>
-		/// Диспетчер имеет текущий токен сдвига
+		/// Отчистить список отменёных команд
 		/// </summary>
-		private bool CurrentTokenExists => commands.Any();
-		/// <summary>
-		/// Текущий токен сдвига
-		/// </summary>
-		private IComparable CurrentTokent
+		private void ClearUndoCommands()
 		{
-			get
+			if (undoCommands.Any())
 			{
-				if (!CurrentTokenExists)
+				foreach (var command in undoCommands)
 				{
-					throw new TrackModelExeption(UNKNOWN_TOKEN);
+					tokens.Remove(command.OffsetToken);
 				}
-				return commands.First().OffsetToken;
+				undoCommands.Clear();
 			}
 		}
 
 		/// <summary>
 		/// Диспетчер токенов сдвига команд
 		/// </summary>
-		public IOffsetTokenDispatcher OffsetTokenDispatcher { get; } = default;
+		public ITrackTokenProvider OffsetTokenDispatcher { get; } = default;
 		/// <summary>
 		/// Получить значение активности диспетчера, определяет производится ли запись изменений
 		/// </summary>
@@ -86,19 +86,23 @@ namespace RevertedModel
 		/// Сдвинуть команды до указаного токена
 		/// </summary>
 		/// <param name="token">Токен до которого необходимо сдвинуть команды</param>
-		public void Offset(IComparable token)
+		public void Offset(object token)
 		{
-			if (CurrentTokenExists)
+			if (!tokens.Contains(token))
 			{
-				var compareResult = token.CompareTo(CurrentTokent);
-				if (compareResult > 0)
-				{
-					Offset(token, command => command.Execute(), undoCommands, commands);
-				}
-				else if (compareResult < 0)
-				{
-					Offset(token, command => command.Undo(), commands, undoCommands);
-				}
+				throw new TrackModelExeption();
+			}
+			if (commands.Select(item => item.OffsetToken).Contains(token))
+			{
+				Offset(token, command => command.Undo(), commands, undoCommands);
+			}
+			else if (undoCommands.Select(item => item.OffsetToken).Contains(token))
+			{
+				Offset(token, command => command.Execute(), undoCommands, commands);
+			}
+			else
+			{
+				throw new InvalidOperationException();
 			}
 		}
 		private void Offset(object token, Action<CommandExecutor> commandExecutor, Stack<TokenExecutor> giver, Stack<TokenExecutor> taker)
@@ -123,12 +127,13 @@ namespace RevertedModel
 		/// <param name="commandExecutor">Команда</param>
 		public void AddAndExecute(CommandExecutor commandExecutor)
 		{
-			undoCommands.Clear();
+			ClearUndoCommands();
 			var token = OffsetTokenDispatcher.CreateToken();
-			if (CurrentTokenExists && token.CompareTo(CurrentTokent) <= 0)
+			if (tokens.Contains(token))
 			{
 				throw new OffsetTokenLessCurrentExeption();
 			}
+			tokens.Add(token);
 			commands.Push(new TokenExecutor(commandExecutor, token));
 			commandExecutor.Execute();
 		}
@@ -138,7 +143,7 @@ namespace RevertedModel
 		/// </summary>
 		private struct TokenExecutor
 		{
-			public TokenExecutor(CommandExecutor commandExecutor, IComparable offsetToken)
+			public TokenExecutor(CommandExecutor commandExecutor, object offsetToken)
 			{
 				CommandExecutor = commandExecutor;
 				OffsetToken = offsetToken;
@@ -150,7 +155,7 @@ namespace RevertedModel
 			/// <summary>
 			/// Токен позиции действия на линии сдвига
 			/// </summary>
-			public IComparable OffsetToken { get; }
+			public object OffsetToken { get; }
 		}
 		/// <summary>
 		/// Токен отключения диспетчера

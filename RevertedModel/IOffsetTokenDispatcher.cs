@@ -9,12 +9,12 @@ namespace RevertedModel
 	/// <summary>
 	/// Поставщик токенов сдвига команд
 	/// </summary>
-	public interface IOffsetTokenDispatcher
+	public interface ITrackTokenProvider
 	{
 		/// <summary>
-		/// Создать токен сдвига, каждый следующий предоставляемый токен должен быть больше преведущего
+		/// Создать токен сдвига, токены должны создаваться угикальными
 		/// </summary>
 		/// <returns>Токен сдвига</returns>
-		IComparable CreateToken();
+		object CreateToken();
 	}
 }

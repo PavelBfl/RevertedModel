@@ -11,7 +11,7 @@ namespace RevertedModel
 	{
 		public CommandExecutor(TCommand command)
 		{
-			Command = command ?? throw new NullReferenceException(nameof(command));
+			Command = command ?? throw new ArgumentNullException(nameof(command));
 		}
 
 		/// <summary>

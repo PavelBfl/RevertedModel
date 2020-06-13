@@ -8,7 +8,7 @@ namespace RevertedModel
 	{
 		public CommandedValuesCreator(TrackDispatcher commandDispatcher)
 		{
-			CommandDispatcher = commandDispatcher ?? throw new NullReferenceException(nameof(commandDispatcher));
+			CommandDispatcher = commandDispatcher ?? throw new ArgumentNullException(nameof(commandDispatcher));
 		}
 
 		public TrackDispatcher CommandDispatcher { get; } = null;

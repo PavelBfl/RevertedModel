@@ -35,6 +35,7 @@ namespace RevertedModel.Tests
 				Assert.IsNotNull(disableToken);
 			}
 		}
+
 		[TestMethod()]
 		public void Disable_Disable_IsEnableFalse()
 		{

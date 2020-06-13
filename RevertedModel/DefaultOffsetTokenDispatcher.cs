@@ -4,11 +4,11 @@ using System.Text;
 
 namespace RevertedModel
 {
-	class DefaultOffsetTokenDispatcher : IOffsetTokenDispatcher
+	class DefaultOffsetTokenDispatcher : ITrackTokenProvider
 	{
 		public int CurrentToken { get; private set; } = 0;
 
-		public IComparable CreateToken()
+		public object CreateToken()
 		{
 			return CurrentToken++;
 		}
