@@ -31,31 +31,20 @@ namespace RevertedModel
 		/// <summary>
 		/// Список выполненых команд
 		/// </summary>
-		private readonly Stack<TokenExecutor> commands = new Stack<TokenExecutor>();
+		private readonly TrackCommands commands = new TrackCommands();
 		/// <summary>
 		/// Список отменёных команд
 		/// </summary>
-		private readonly Stack<TokenExecutor> undoCommands = new Stack<TokenExecutor>();
+		private readonly TrackCommands undoCommands = new TrackCommands();
+
 		/// <summary>
 		/// Список используемых токенов
 		/// </summary>
-		private readonly HashSet<object> tokens = new HashSet<object>();
-
+		public IEnumerable<object> Tokens => commands.Tokens.Concat(undoCommands.Tokens);
 		/// <summary>
-		/// Отчистить список отменёных команд
+		/// Текущий ключевой токен
 		/// </summary>
-		private void ClearUndoCommands()
-		{
-			if (undoCommands.Any())
-			{
-				foreach (var command in undoCommands)
-				{
-					tokens.Remove(command.OffsetToken);
-				}
-				undoCommands.Clear();
-			}
-		}
-
+		public object CurrentToken => commands.Peek().OffsetToken;
 		/// <summary>
 		/// Диспетчер токенов сдвига команд
 		/// </summary>
@@ -88,15 +77,11 @@ namespace RevertedModel
 		/// <param name="token">Токен до которого необходимо сдвинуть команды</param>
 		public void Offset(object token)
 		{
-			if (!tokens.Contains(token))
-			{
-				throw new TrackModelExeption();
-			}
-			if (commands.Select(item => item.OffsetToken).Contains(token))
+			if (commands.Contains(token))
 			{
 				Offset(token, command => command.Undo(), commands, undoCommands);
 			}
-			else if (undoCommands.Select(item => item.OffsetToken).Contains(token))
+			else if (undoCommands.Contains(token))
 			{
 				Offset(token, command => command.Execute(), undoCommands, commands);
 			}
@@ -105,9 +90,9 @@ namespace RevertedModel
 				throw new InvalidOperationException();
 			}
 		}
-		private void Offset(object token, Action<CommandExecutor> commandExecutor, Stack<TokenExecutor> giver, Stack<TokenExecutor> taker)
+		private void Offset(object token, Action<CommandExecutor> commandExecutor, TrackCommands giver, TrackCommands taker)
 		{
-			while (giver.Any())
+			while (giver.Count > 0)
 			{
 				var tokenCommand = giver.Pop();
 
@@ -127,17 +112,86 @@ namespace RevertedModel
 		/// <param name="commandExecutor">Команда</param>
 		public void AddAndExecute(CommandExecutor commandExecutor)
 		{
-			ClearUndoCommands();
 			var token = OffsetTokenDispatcher.CreateToken();
-			if (tokens.Contains(token))
+			if (commands.Contains(token) || undoCommands.Contains(token))
 			{
 				throw new OffsetTokenLessCurrentExeption();
 			}
-			tokens.Add(token);
 			commands.Push(new TokenExecutor(commandExecutor, token));
 			commandExecutor.Execute();
 		}
 
+		/// <summary>
+		/// Очередь сохранённых комманд
+		/// </summary>
+		private class TrackCommands
+		{
+			/// <summary>
+			/// Список комманд
+			/// </summary>
+			private readonly Stack<TokenExecutor> commands = new Stack<TokenExecutor>();
+
+			/// <summary>
+			/// Список используемых токенов
+			/// </summary>
+			public IEnumerable<object> Tokens => tokens;
+			private readonly HashSet<object> tokens = new HashSet<object>();
+			/// <summary>
+			/// Количество элементов коллекции
+			/// </summary>
+			public int Count => commands.Count;
+			/// <summary>
+			/// Проверка содержания ключевого токена в очереди
+			/// </summary>
+			/// <param name="token">Искомый токен</param>
+			/// <returns>true если токен содержится в очереди, иначе false</returns>
+			public bool Contains(object token)
+			{
+				return tokens.Contains(token);
+			}
+			/// <summary>
+			/// Добавить элемент вызова в стек
+			/// </summary>
+			/// <param name="executor">Токен действия</param>
+			public void Push(TokenExecutor executor)
+			{
+				if (Contains(executor.OffsetToken))
+				{
+					throw new TrackModelExeption();
+				}
+				tokens.Add(executor.OffsetToken);
+				commands.Push(executor);
+			}
+			/// <summary>
+			/// Получить первый элемент в стеке, и удалить его из стека
+			/// </summary>
+			/// <returns>Элемент выполнения команды</returns>
+			public TokenExecutor Pop()
+			{
+				var result = commands.Pop();
+				if (!tokens.Remove(result.OffsetToken))
+				{
+					throw new InvalidOperationException();
+				}
+				return result;
+			}
+			/// <summary>
+			/// Получить первый элемент в стеке
+			/// </summary>
+			/// <returns>Элемент выполнения команды</returns>
+			public TokenExecutor Peek()
+			{
+				return commands.Peek();
+			}
+			/// <summary>
+			/// Отчистить стек
+			/// </summary>
+			public void Clear()
+			{
+				tokens.Clear();
+				commands.Clear();
+			}
+		}
 		/// <summary>
 		/// Токен сохранения шага действия на линии сдвига
 		/// </summary>
